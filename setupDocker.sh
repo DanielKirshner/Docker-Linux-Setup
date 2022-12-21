@@ -16,6 +16,6 @@ apt-get update
 apt-get install docker.io
 touch /etc/docker/daemon.json
 echo -e "{\n\t"storage-driver":"vfs"\n}\n" > /etc/docker/daemon.json
-systemctl enable docker.service
-systemctl restart docker.service
+systemctl -q enable docker.service
+systemctl -q restart docker.service
 usermod -aG docker $USER
