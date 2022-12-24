@@ -18,7 +18,7 @@ touch /etc/docker/daemon.json
 echo -e "{\n\t"storage-driver":"vfs"\n}\n" > /etc/docker/daemon.json
 systemctl -q enable docker.service
 systemctl -q restart docker.service
-usermod -aG docker $USER
+usermod -aG docker $SUDO_USER
 
 read -p "Reboot now? [Y/n]" -n 1 -r
 if [[ $REPLY =~ ^[Yy]$ ]]
