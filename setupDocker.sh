@@ -14,6 +14,16 @@ fi
 
 apt-get update
 apt-get install docker.io -y
+
+#!/bin/bash
+
+if [ -x "$(command -v docker)" ]; then
+    echo "Docker installed."
+else
+    echo -e "Error installing docker.\nAbort"
+    exit 2
+fi
+
 touch /etc/docker/daemon.json
 echo -e "{\n\t"storage-driver":"vfs"\n}\n" > /etc/docker/daemon.json
 systemctl -q enable docker.service
