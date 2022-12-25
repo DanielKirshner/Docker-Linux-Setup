@@ -1,6 +1,6 @@
 # Docker-Linux-Setup
 ## What is this?
-Superior docker installation automation setup for linux
+Superior tool for docker automation setup for linux
 
 - Install the last updated docker binary
 - Making docker run as nonsuperuser
