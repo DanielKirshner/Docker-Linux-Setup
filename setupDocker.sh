@@ -27,7 +27,7 @@ else
 fi
 
 touch /etc/docker/daemon.json
-echo -e "{\n\t"storage-driver":"vfs"\n}\n" > /etc/docker/daemon.json
+echo -e '{\n\t"storage-driver":"vfs"\n}\n' > /etc/docker/daemon.json
 systemctl -q enable docker.service
 systemctl -q restart docker.service
 usermod -aG docker $SUDO_USER
@@ -39,6 +39,6 @@ then
         sleep 1
         reboot
 else
-        echo -e "Don't forget to reboot before using docker!"
+        echo -e "Don't forget to reboot before using docker!\n"
         exit $SUCCESS_CODE
 fi
