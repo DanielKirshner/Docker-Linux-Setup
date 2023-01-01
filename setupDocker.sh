@@ -23,7 +23,7 @@ if [ -x "$(command -v docker)" ]; then
     echo "Docker installed."
 else
     echo -e "Error installing docker.\nAbort"
-    exit $NON_SUDO_ERROR_CODE
+    exit $DOCKER_INSTALLATION_ERROR_CODE
 fi
 
 touch /etc/docker/daemon.json
