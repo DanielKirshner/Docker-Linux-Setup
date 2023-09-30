@@ -4,6 +4,10 @@ SUCCESS_CODE=0
 NON_SUDO_ERROR_CODE=1
 DOCKER_INSTALLATION_ERROR_CODE=2
 
+DOCKER_DAEMON_FILE_PATH="/etc/docker/daemon.json"
+DOCKER_PACKAGE_NAME="docker.io"
+DOCKER_SERVICE_NAME="docker.service"
+
 echo "┌─────────────────────────────────────────────────┐"
 echo "│▛▀▖      ▌         ▌  ▗           ▞▀▖   ▐        │"
 echo "│▌ ▌▞▀▖▞▀▖▌▗▘▞▀▖▙▀▖ ▌  ▄ ▛▀▖▌ ▌▚▗▘ ▚▄ ▞▀▖▜▀ ▌ ▌▛▀▖│"
@@ -17,7 +21,7 @@ if [ "$EUID" -ne 0 ]
 fi
 
 apt-get update
-apt-get install docker.io -y
+apt-get install $DOCKER_PACKAGE_NAME -y
 
 if [ -x "$(command -v docker)" ]; then
     echo "Docker installed."
@@ -26,10 +30,10 @@ else
     exit $DOCKER_INSTALLATION_ERROR_CODE
 fi
 
-touch /etc/docker/daemon.json
-echo -e '{\n\t"storage-driver":"vfs"\n}\n' > /etc/docker/daemon.json
-systemctl -q enable docker.service
-systemctl -q restart docker.service
+touch $DOCKER_DAEMON_FILE_PATH
+echo -e '{\n\t"storage-driver":"vfs"\n}\n' > $DOCKER_DAEMON_FILE_PATH
+systemctl -q enable $DOCKER_SERVICE_NAME
+systemctl -q restart $DOCKER_SERVICE_NAME
 usermod -aG docker $SUDO_USER
 
 read -p "Reboot now? [Y/n]" -n 1 -r
