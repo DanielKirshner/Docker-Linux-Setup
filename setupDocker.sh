@@ -9,6 +9,7 @@ DOCKER_INSTALLATION_ERROR_CODE=2
 DOCKER_DAEMON_FILE_PATH="/etc/docker/daemon.json"
 DOCKER_PACKAGE_NAME="docker.io"
 DOCKER_SERVICE_NAME="docker.service"
+SLEEP_DURATION_IN_SECONDS_BEFORE_REBOOT=2
 
 # Colors
 COLOR_GREEN="\033[1;32m"
@@ -37,6 +38,7 @@ if [ $? -ne 0 ]; then
   exit $DOCKER_INSTALLATION_ERROR_CODE
 fi
 
+# Verify Docker installation
 if [ -x "$(command -v docker)" ]; then
     echo "Docker installed."
 else
@@ -54,7 +56,7 @@ read -p "Reboot now? [Y/n]" -n 1 -r
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
         echo -e "${COLOR_GREEN}Rebooting...\n${COLOR_RESET}"
-        sleep 1
+        sleep $SLEEP_DURATION_IN_SECONDS_BEFORE_REBOOT
         reboot
 else
         echo -e "${COLOR_YELLOW}Don't forget to reboot before using docker!\n${COLOR_RESET}"
